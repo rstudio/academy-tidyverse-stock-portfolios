@@ -1,0 +1,120 @@
+---
+title: "Tidy and join tables"
+format: html
+---
+
+# Instructions
+
+This week you learned about tidying and joining data sets with the tidyr (pronounced tidy-R) and dplyr packages.
+
+Joining data sets can be deceptively tricky. It is important to keep in mind that prepping and inspecting the tables you're working with *before* you do a join is often more important (and takes more time) than doing the join itself.
+
+You'll use some of these skills in the milestone to the right.
+
+To learn more about the variables contained in the data sets, refer to the data dictionaries for `sp500` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sp500_dictionary.html) and `sectors` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sectors_dictionary.html).
+
+Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+
+# Load your packages here
+
+```
+
+## Tidy and join
+
+In this milestone, you'll first tidy a data set that covers the individual stocks in the S&P 500. Then, you'll join it with sector information and compute the total daily price for each sector. To do this, you'll need to use the data in `sp500.csv` alongside `sectors.csv`. Both data sets are stored in your `data/` directory.
+
+## Recreation
+
+### Part 1 - Import
+
+Before you begin, you will need to import your data sets. Use the code chunk below to read two data sets from the `data/` directory:
+
+1. `sp500.csv`, save it as `sp500`
+2. `sectors.csv`, save it as `sectors`
+
+```{r}
+#| label: recreation-import
+
+```
+
+### Part 2 - Tidy the table
+
+Take a look at the `sp500` data set. Notice that the `event` column contains the _names_ of variables (`open`, `high`, `low`, `close`, `adjusted`), and the `price` column contains their values. To make this data tidy, each of those events should be its own column.
+
+Use a tidyr function in the code chunk below to pivot `sp500` so that each event becomes its own column. Save the result as `sp500_tidy`; we will use it in Part 3.
+
+```{r}
+#| label: recreation-tidy
+
+```
+
+### Part 3 - Join tables and summarize
+
+Run the code below to see a table.
+
+```{r}
+#| label: recreate-this
+#| message: false
+solution <- readr::read_csv("data/milestone04.csv")
+solution
+```
+
+Your task is to use what you've learned about the dplyr package to transform `sp500_tidy` and `sectors` into this table. You will need to:
+
+1. Join the two data sets. (Hint: which variable can you join on? You may want to use `anti_join()` to check for any mismatched observations before joining.)
+2. Group by `sector` and `date`
+3. Compute a `daily_total` summary, the sum of `adjusted` for each group (Hint: remove `NA`s from `adjusted` before adding them up)
+
+Work in the code chunk below. Save the result as `sector_prices`.
+
+```{r}
+#| label: recreation-join
+
+```
+
+Run the following code chunk to test whether you have the same answer as the solution:
+
+```{r}
+#| label: compare
+#| eval: false
+waldo::compare(sector_prices, solution, tolerance = 1e-4)
+```
+
+### Part 4 - Visualize
+
+Now that you have computed the total daily price for each sector, you can compare the sectors over time. Run the chunk below to visualize `sector_prices`.
+
+```{r}
+#| label: visualize-sectors
+#| eval: false
+sector_prices |>
+  ggplot(mapping = aes(x = date, y = daily_total, color = sector)) +
+    geom_line() +
+  labs(title = "Total daily price by sector")
+```
+
+## Extension
+
+Using the code chunk below, investigate a single research question about this data, using the skills you have learned this week and in previous weeks of Academy. Some ideas:
+
+1. Create a visualization using the joined data from the milestone recreation; refine the visualization (subset data, adjust graph, etc.) at least once as you begin a further investigation of the data. In your work, use at least one data transformation step and one graph to start addressing your questions.
+2. Using `sector_prices`, compute the Cumulative Annual Growth Rate (CAGR) for each sector, using `((last(daily_total) / first(daily_total)) - 1) * 100`. Which sector outperformed the rest?
+3. Choose 2-3 companies _from the same sector_ in the joined data and compare their performance across a time window of interest. (This could be open / high / low / close price data, shares held, or multiple variables.)
+4. Use `tidyquant::tq_performance()` to find some performance statistics for the stocks in the `sp500_tidy` data set. Along with another metric of interest, consider calculating the Sharpe ratio, one of the most widely used methods for measuring risk-adjusted relative returns, for each symbol. You can learn more about the Sharpe ratio here: https://en.wikipedia.org/wiki/Sharpe_ratio
+
+Alternately, working with a data set of your own, complete the following:
+
+1. Read in your data
+2. Complete a data wrangling task relevant to your data (tidying and/or reshaping/pivoting your data); if appropriate, join your data with a second data set (filtering or mutating join)
+3. To demonstrate your process, show summary tables of your data throughout these transformations
+
+```{r}
+#| label: extension
+
+```

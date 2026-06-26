@@ -1,0 +1,100 @@
+---
+title: "Summarize data"
+format: html
+---
+
+# Instructions
+
+This week, you learned several new functions from dplyr (pronounced DEE-ply-er), a commonly-used package from the tidyverse for wrangling data. You also learned some new ways to enhance your plots.
+
+You'll use these skills to compute the Cumulative Annual Growth Rate (CAGR) for each index.
+
+To learn more about the variables contained in the data set, refer to the data dictionary: https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/indexes_dictionary.html
+
+Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+
+# Load your packages here
+
+```
+
+## Summarize data
+
+In this milestone, you'll use group-wise summaries to compute the Cumulative Annual Growth Rate (CAGR) for each index.
+
+## Recreation
+
+### Part 1 - Import
+
+Before you begin, you will need to import your data set. Use the code chunk below to read the data from the data file `indexes.csv`, which is stored in the `data/` folder in your working directory. Be sure to save the data to an object named `indexes`.
+
+```{r}
+#| label: recreation-import
+
+```
+
+### Part 2 - Compute CAGR
+
+We can compute the CAGR for one index like so. Run the code below to compute the CAGR for the S&P 500 index.
+
+```{r}
+#| label: compute-cagr
+#| eval: false
+indexes |>
+  filter(symbol == "^GSPC") |>
+  summarise(CAGR = ((last(adjusted) / first(adjusted)) - 1) * 100)
+```
+
+Now, you'll compute the CAGR as above for each index. Run the code below to see a table.
+
+```{r}
+#| label: recreate-this
+#| message: false
+solution <- readr::read_csv("data/milestone02.csv")
+solution
+```
+
+Your task is to use what you've learned about the dplyr package to transform `indexes` into this table. You will need to:
+
+1. Group the data
+2. Summarize to compute the Cumulative Annual Growth Rate (CAGR) for each index
+
+Work in the code chunk below. Save the result as `index_cagrs`.
+
+```{r}
+#| label: recreation-summary
+
+```
+
+Run the following code chunk to test whether you have the same answer as the solution:
+
+```{r}
+#| label: compare
+#| eval: false
+waldo::compare(index_cagrs, solution, tolerance = 1e-4)
+```
+
+## Extension
+
+Using the code chunk below, investigate a research question about this data, using the data wrangling skills you learned this week. Some ideas:
+
+1. Return to your summary table of CAGR values; add columns for 1-2 other variables you think may be important when considering CAGR.
+2. Data visualization is often an easier way to see patterns than numbers in a table. Build a graph from your summary table of CAGR values for each index, and then add another relevant variable to your visualization. Alternately, create a separate visualization using your chosen variable.
+3. How do the tools we used above compare to the tools provided by the tidyquant package? Calculate returns for individual stocks using `group_by()` and `tidyquant::tq_transmute()`. Investigate documentation to understand the source of any differences (or lack thereof).
+4. [any other research question of interest]
+
+Alternately, working with a data set of your own, complete the following:
+
+1. Read in your data
+2. Use `group_by()` and `summarize()` to produce a simple table from some subset of your data
+3. Create a related graph of this data subset using ggplot
+
+```{r}
+#| label: extension
+
+```

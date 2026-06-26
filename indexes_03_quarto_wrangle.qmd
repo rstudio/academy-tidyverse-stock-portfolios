@@ -1,0 +1,114 @@
+---
+title: "Wrangle rows and columns"
+format: html
+---
+
+# Instructions
+
+This week, you learned several more functions from the dplyr package (pronounced DEE-ply-er). These functions help you work with the rows and columns in your data set.
+
+You'll use these skills to add a new column showing the daily return of each index and investigate whether the indexes display the same pattern of returns across time.
+
+To learn more about the variables contained in the data set, refer to the data dictionary: https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/indexes_dictionary.html
+
+Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+
+# Load your packages here
+
+```
+
+## Create and select columns
+
+It is hard to compare performance across indexes by looking at prices. In this milestone, you'll create a new variable that shows the daily return of each index. You'll then recode the index tickers into human readable names and explore the cumulative returns over time.
+
+## Recreation
+
+### Part 1 - Import
+
+Before you begin, you will need to import your data set. Use the code chunk below to read the data from the data file `indexes.csv`, which is stored in the `data/` folder in your working directory. Be sure to save the data to an object named `indexes`.
+
+```{r}
+#| label: recreation-import
+
+```
+
+### Part 2 - Create and recode
+
+Run the code below to see a table.
+
+```{r}
+#| label: recreate-this
+#| message: false
+solution <- readr::read_csv("data/milestone03.csv")
+solution
+```
+
+Your task is to use what you've learned about the dplyr package to transform `indexes` into this table. You will need to:
+
+1. Create a new column named `return`, which computes returns based on the formula: `1 + ((adjusted - lag(adjusted, order_by = date)) / lag(adjusted, order_by = date))`
+2. Replace all `NA` values in `return` with 1 using `if_else()`
+3. Use `return` to create a new column named `growth` that stores the cumulative returns (Hint: `cumprod()`)
+4. Recode each index ticker as follows using `case_when()`:
+
+    - ^DJI : Dow Jones
+    - ^FVX : 5 Year Treasury
+    - ^GSPC : S&P 500
+    - ^IRX : 13 Week Treasury
+    - ^IXIC : NASDAQ
+    - ^TNX : 10 Year Treasury
+
+_Hint_: What function, placed before `mutate()`, will calculate these values separately for each index?
+
+Work in the code chunk below. Save the result as `indexes_return`.
+
+```{r}
+#| label: recreation-create
+
+```
+
+Run the following code chunk to test whether you have the same answer as the solution:
+
+```{r}
+#| label: compare
+#| eval: false
+waldo::compare(indexes_return, solution, tolerance = 1e-4)
+```
+
+### Part 3 - Visualize
+
+Now that you have created the `growth` variable, you can plot the cumulative returns growth of each index over time. Run the chunk below to visualize `indexes_return`.
+
+```{r}
+#| label: visualize-growth
+#| eval: false
+indexes_return |>
+  ggplot(mapping = aes(x = date, y = growth, color = symbol)) +
+    geom_line() +
+  labs(title = "Cumulative returns growth of indexes over time")
+```
+
+## Extension
+
+Using the code chunk below, investigate a single research question about this data, using the additional data wrangling skills you learned this week. Some ideas:
+
+1. Milestone 1 focused on patterns in prices over time; this week you looked at returns and cumulative returns (`growth`). What patterns do you see when comparing returns to some other variable of interest (e.g. opening value, low value, price, etc.), over time, for an index of your choosing? Compare with a second index (or more) if you so choose.
+2. Based on cumulative growth, price, _or_ volume, divide this data into groups of your choosing (e.g. low/medium/high, above/below a group average, etc.) and explore patterns in other variables based on these groups. We will build on your findings in future milestones.
+3. Consider using the tidyquant function `tq_mutate()` instead of `mutate()` to add a new column to the data set. How do they vary?
+4. [any other research question of interest]
+
+Alternately, working with a data set of your own, complete the following:
+
+1. Read in your data
+2. Create at least one new variable in your data set (using `mutate()` and/or `summarize()`), or use other dplyr functions to alter your data
+3. Use your updated data set to create at least one graph and/or table
+
+```{r}
+#| label: extension
+
+```

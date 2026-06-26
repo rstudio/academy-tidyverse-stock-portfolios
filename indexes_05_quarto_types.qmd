@@ -1,0 +1,163 @@
+---
+title: "Work with data types"
+format: html
+---
+
+# Instructions
+
+This week, you worked with three new data types in R -- factors, strings, and date-times -- using the forcats, stringr, and lubridate packages, respectively.
+
+In this milestone, you'll plot the CAGRs for each index and sector we've examined, in a single plot ordered from largest CAGR to smallest.
+
+To learn more about the variables contained in the data sets, refer to the data dictionaries for `indexes` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/indexes_dictionary.html), `sp500` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sp500_dictionary.html), and `sectors` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sectors_dictionary.html).
+
+Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+```
+
+## Factors
+
+In this milestone, you'll use forcats to plot the CAGRs for each index and sector we've examined in a single plot ordered from largest CAGR to smallest.
+
+## Recreation
+
+### Part 1 - Import
+
+Before you begin, you will need to import your data sets. Use the code chunk below to read three data sets from the `data/` directory:
+
+1. `indexes.csv`, save it as `indexes`
+2. `sp500.csv`, save it as `sp500`
+3. `sectors.csv`, save it as `sectors`
+
+```{r}
+#| label: recreation-import
+
+```
+
+### Part 2 - Prepare the data
+
+Run the code below to recreate the variables we have made in previous milestones. This produces `index_cagrs` (the CAGR for each index) and `sector_cagrs` (the CAGR for each sector).
+
+```{r}
+#| label: prep-data
+#| message: false
+index_cagrs <-
+  indexes |>
+  mutate(
+    symbol = case_when(
+      symbol == "^DJI"  ~ "Dow Jones",
+      symbol == "^FVX"  ~ "5 Year Treasury",
+      symbol == "^GSPC" ~ "S&P 500",
+      symbol == "^IRX"  ~ "13 Week Treasury",
+      symbol == "^IXIC" ~ "NASDAQ",
+      symbol == "^TNX"  ~ "10 Year Treasury"
+    )
+  ) |>
+  group_by(symbol) |>
+  summarise(CAGR = ((last(adjusted) / first(adjusted)) - 1) * 100) |>
+  ungroup()
+
+sp500_tidy <-
+  sp500 |>
+  pivot_wider(names_from = event, values_from = price)
+
+sector_prices <-
+  sp500_tidy |>
+  left_join(sectors, by = "symbol") |>
+  group_by(sector, date) |>
+  summarise(daily_total = sum(adjusted, na.rm = TRUE)) |>
+  ungroup()
+
+sector_cagrs <-
+  sector_prices |>
+  group_by(sector) |>
+  summarise(CAGR = ((last(daily_total) / first(daily_total)) - 1) * 100)
+
+sector_cagrs
+```
+
+### Part 3 - Combine the tables
+
+Run the code below to see a table.
+
+```{r}
+#| label: recreate-this-1
+#| message: false
+solution <- readr::read_csv("data/milestone05.csv")
+solution
+```
+
+Your task is to use what you've learned about the dplyr package to transform `sector_cagrs` and `index_cagrs` into this table. You will need to:
+
+1. Rename the `sector` column in `sector_cagrs` to `symbol`
+2. Use `bind_rows()` to bind `index_cagrs` to `sector_cagrs` by row
+
+Work in the code chunk below. Save the result as `cagrs`; we will use it in Part 4.
+
+```{r}
+#| label: recreation-combine
+
+```
+
+Run the following code chunk to test whether you have the same answer as the solution:
+
+```{r}
+#| label: compare
+#| eval: false
+waldo::compare(cagrs, solution, tolerance = 1e-4)
+```
+
+## Part 4 - The role of factor orders in visualizations
+
+Run the chunk below to visualize the data of `cagrs`.
+
+```{r}
+#| label: summary-plot
+#| eval: false
+cagrs |>
+  ggplot(mapping = aes(y = symbol, x = CAGR)) +
+  geom_col()
+```
+
+This is a nice plot, but the order of symbols on the y axis is arbitrary (alphabetical). We may want to give the symbols a more principled order before we publish this plot.
+
+#### Visualization
+
+Using the File Explorer, navigate to the `images/` directory, then click on `milestone05.png` to open an image.
+
+You should see a plot in which the symbols are now ordered from largest CAGR to smallest. Your task is to recreate this plot.
+
+Use the chunk below to recreate this plot. Hint: reorder the `symbol` variable using a forcats function.
+
+```{r}
+#| label: recreation-visualize-1
+
+```
+
+## Extension
+
+Using the code chunk below, investigate a research question about this data, using the skills you have learned this week and in previous weeks of Academy. Some ideas:
+
+1. Use data visualization to investigate if there seems to be a trend in stock value (variable of your choosing) _within the year_ -- for all indices, certain sectors, or focal companies within a sector.
+2. Is there a _quarterly_ pattern for stock returns? Does this change if you focus on certain indices, sectors, or companies within a sector?
+3. Looking _within_ a month, do you see patterns in returns, open/close price, high/low value, or volume? Do these patterns map to day of the week? If you look across months, do patterns emerge by day of the month?
+4. [any other research question of interest]
+
+Alternately, working with a data set of your own, complete the following:
+
+1. Read in your data
+2. If your data contains ...
+    - ... date-time data, use a lubridate function to correctly format your date-time variables
+    - ... string data, use a stringr function to manipulate your string variables
+    - ... categorical data, use a forcats function to modify the factor levels of your categorical variables (reorder, recode, etc.)
+3. Using a table or graph, present a meaningful subset of your modified data
+
+```{r}
+#| label: extension
+
+```

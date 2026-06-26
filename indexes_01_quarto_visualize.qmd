@@ -1,0 +1,116 @@
+---
+title: "Import and visualize"
+format: html
+---
+
+# Instructions
+
+Welcome to your first project milestone! In this project, you will use the **tidyverse** to investigate real data related to portfolio returns.
+
+The returns of stocks, indices, and portfolios greatly fluctuate, which makes it hard for investors to assess the returns on their investment. By the end of this project, we'd like to find a way for learners to assemble their own portfolio and report on its performance compared to popular benchmarks. We will split our work into milestones that build on each other to iteratively explore the data.
+
+## How to complete a milestone
+
+Each milestone will require you to read and edit a Quarto document, like this one. **To learn how to use Quarto in Positron and RStudio, see here: https://quarto.org/docs/get-started/hello/positron.html.**
+
+For each milestone, you will need to:
+
+1. **Recreate a result,** like a plot, table, or model. This will require you to use the skills you have studied that week.
+
+2. **Extend the result.** Explore a new question about the data--this will provide an opportunity to both apply the skills you learned that week and to teach yourself something new. We will provide suggestions each week, but you are encouraged to explore any aspect of the data that interests you. Alternatively, apply and extend the skills you learned that week by working with your own data. Remember, being able to teach yourself new parts of a computer language is what will make you a truly competent open source programmer---and we are here to help.
+
+You'll share your extension with your groupmates at the weekly meeting, and show them how they could do the same.
+
+## The `indexes` data set
+
+The data comes from Yahoo finance on the top US stock indexes, Treasury Bill Yield indexes, and individual stocks in the S&P 500, retrieved with the tidyquant package.
+
+To learn more about the variables contained in the data set, refer to the data dictionary: https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/indexes_dictionary.html
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+```
+
+## R Basics
+
+In this milestone, you'll become familiar with the `indexes` data set.
+
+## Recreation
+
+### Part 1 - Import
+
+In the code chunk below, use a command **from the readr package** to read in the data set.
+
+* The data set lives in the file `indexes.csv`, which is stored in the `data/` folder in your working directory.
+* Save the data set as an object named `indexes`.
+
+_Note_: Both `read_csv()` and `read.csv()` read data from a CSV file, but they differ slightly in _how_ they read in data. Make sure you use the tool from the readr package. (Not sure which is which? Check the help documentation.)
+
+```{r}
+#| label: recreation-import
+
+```
+
+### Part 2 - Explore
+
+Use R to inspect the contents of `indexes`:
+
+- Display the contents of `indexes`
+- Use `nrow()` to find the number of observations in `indexes`
+- Use `min()` to find the first time period in `indexes`
+- Use `max()` to find the last time period in `indexes`
+- Use `count()` from the dplyr package to count the number of symbols in `indexes`
+- Use `summary()` to generate a summary of the data set
+
+*Hint:* you may want to look up the help pages for each of these functions.
+
+Write your code in the following chunk:
+
+```{r}
+#| label: recreation
+
+```
+
+### Part 3 - Visualize
+
+Using the File Explorer, navigate to the `images/` directory, then click on `milestone01.png` to open an image.
+
+You should see a plot presenting the price history for the **S&P 500 index** (`^GSPC`).
+
+Use `ggplot()` in the chunk below to re-create the plot.
+
+- Hint #1: This plot uses two geoms: a geom that draws points, and a geom that draws a line.
+- Hint #2: Before plotting, you will first need to filter your data set to only include observations for the S&P 500 index (`^GSPC`).
+
+```{r}
+#| label: recreation-visualize
+
+```
+
+## Extension
+
+Using the code chunk below, investigate a research question about this data, using the visualization skills you learned this week.
+
+Some ideas (we encourage you to choose one):
+
+1. Your recreation focused on the adjusted prices for the S&P 500 index. How does the trajectory of the S&P 500 compare to another index with similar trading volume?
+2. Do you see similar patterns in prices over time across all indexes? Are the patterns consistent across time? (If not, note when differences arise.)
+3. Within an index or indexes of interest, what patterns (if any) do you see between trading volume and prices? How do these patterns change over time?
+4. [any other research question of interest]
+
+Alternately, working with a data set of your own*, complete the following:
+
+1. Read in your data
+2. Filter your data using a logical test/condition
+3. Graph this data subset using at least one geom
+
+* Many R users download financial data with a package named tidyquant, which has a well-documented package site: https://business-science.github.io/tidyquant/index.html. Consider using the tidyquant function `tq_get()` to download a financial data set for you to explore: https://business-science.github.io/tidyquant/articles/TQ01-core-functions-in-tidyquant.html#get-quantitative-data
+
+```{r}
+#| label: extension
+
+```

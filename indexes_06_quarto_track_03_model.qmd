@@ -1,0 +1,62 @@
+---
+title: "Track III: Transform and model"
+format: html
+---
+
+# Instructions
+
+For this final milestone, apply what you have learned about data transformation and modeling to further explore the stock portfolios data. You'll investigate whether any sector demonstrated momentum, i.e. whether its returns were associated with the previous day's returns. Consider the following steps:
+
+1. Read in your data
+2. Wrangle your data so it is in a format that is ready for modeling
+3. Create a simple regression model and inspect your model results using functions from the broom package
+
+To learn more about the variables contained in the data sets, refer to the data dictionaries for `sp500` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sp500_dictionary.html) and `sectors` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sectors_dictionary.html).
+
+Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
+
+# Milestone
+
+```{r}
+#| label: setup
+#| include: false
+
+# loading packages
+library(tidyverse)
+```
+
+## Transform and model
+
+To help you get started, the code below recreates the variables from previous milestones and adds `lag_return`, which captures the _previous_ day's return for each observation. You can use these variables, and more, as potential predictors in a model that predicts a sector's return based on the previous day's return. You may wish to start here, or begin fresh with a question of your own.
+
+```{r}
+#| label: prep-data
+#| eval: false
+sp500 <- read_csv("data/sp500.csv")
+sectors <- read_csv("data/sectors.csv")
+
+sp500_tidy <-
+  sp500 |>
+  pivot_wider(names_from = event, values_from = price)
+
+sector_prices <-
+  sp500_tidy |>
+  left_join(sectors, by = "symbol") |>
+  group_by(sector, date) |>
+  summarise(daily_total = sum(adjusted, na.rm = TRUE)) |>
+  ungroup()
+
+sector_returns <-
+  sector_prices |>
+  group_by(sector) |>
+  mutate(
+    return =
+      1 + ((daily_total - lag(daily_total, order_by = date)) / lag(daily_total, order_by = date)),
+    return = if_else(is.na(return), 1, return),
+    lag_return = lag(return, order_by = date),
+    growth = cumprod(return)
+  ) |>
+  ungroup()
+
+sector_returns
+```
