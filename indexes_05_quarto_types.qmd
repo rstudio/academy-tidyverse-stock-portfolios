@@ -9,7 +9,7 @@ This week, you worked with three new data types in R -- factors, strings, and da
 
 In this milestone, you'll plot the CAGRs for each index and sector we've examined, in a single plot ordered from largest CAGR to smallest.
 
-To learn more about the variables contained in the data sets, refer to the data dictionaries for `indexes` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/indexes_dictionary.html), `sp500` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sp500_dictionary.html), and `sectors` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sectors_dictionary.html).
+To learn more about the variables contained in the data sets, refer to the data dictionaries for `indexes` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/indexes_dictionary.html), `sp500` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sp500_dictionary.html), and `sectors` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sectors_dictionary.html).
 
 Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
 
