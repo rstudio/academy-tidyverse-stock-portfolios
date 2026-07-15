@@ -11,7 +11,7 @@ For this final milestone, apply what you have learned about data transformation 
 2. Wrangle your data so it is in a format that is ready for modeling
 3. Create a simple regression model and inspect your model results using functions from the broom package
 
-To learn more about the variables contained in the data sets, refer to the data dictionaries for `sp500` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sp500_dictionary.html) and `sectors` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sectors_dictionary.html).
+To learn more about the variables contained in the data sets, refer to the data dictionaries for `sp500` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sp500_dictionary.html) and `sectors` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sectors_dictionary.html).
 
 Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
 

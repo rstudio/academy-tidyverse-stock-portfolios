@@ -11,7 +11,7 @@ Joining data sets can be deceptively tricky. It is important to keep in mind tha
 
 You'll use some of these skills in the milestone to the right.
 
-To learn more about the variables contained in the data sets, refer to the data dictionaries for `sp500` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sp500_dictionary.html) and `sectors` (https://rsacdn.link/milestones/internal/v2/stock-portfolios/assets/sectors_dictionary.html).
+To learn more about the variables contained in the data sets, refer to the data dictionaries for `sp500` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sp500_dictionary.html) and `sectors` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sectors_dictionary.html).
 
 Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
 

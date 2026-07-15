@@ -1,9 +1,8 @@
 ---
 title: Stock Index and Sector Analysis Data Dictionary
-output:
-  html_document:
-    theme: cerulean
-    css: https://rsacdn.link/teachthis/css/style.css
+format:
+  html:
+    embed-resources: true
 ---
 
 ## The Stock Portfolios Data
