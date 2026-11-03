@@ -9,11 +9,9 @@ This week you learned about tidying and joining data sets with the tidyr (pronou
 
 Joining data sets can be deceptively tricky. It is important to keep in mind that prepping and inspecting the tables you're working with *before* you do a join is often more important (and takes more time) than doing the join itself.
 
-You'll use some of these skills in the milestone to the right.
+You'll use some of these skills in the milestone below.
 
 To learn more about the variables contained in the data sets, refer to the data dictionaries for `sp500` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sp500_dictionary.html) and `sectors` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sectors_dictionary.html).
-
-Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
 
 # Milestone
 
@@ -83,7 +81,7 @@ Run the following code chunk to test whether you have the same answer as the sol
 ```{r}
 #| label: compare
 #| eval: false
-waldo::compare(sector_prices, solution, tolerance = 1e-4)
+waldo::compare(sector_prices, solution, tolerance = 1e-4, ignore_attr = c("class", "groups"))
 ```
 
 ### Part 4 - Visualize
@@ -104,7 +102,7 @@ sector_prices |>
 Using the code chunk below, investigate a single research question about this data, using the skills you have learned this week and in previous weeks of Academy. Some ideas:
 
 1. Create a visualization using the joined data from the milestone recreation; refine the visualization (subset data, adjust graph, etc.) at least once as you begin a further investigation of the data. In your work, use at least one data transformation step and one graph to start addressing your questions.
-2. Using `sector_prices`, compute the Cumulative Annual Growth Rate (CAGR) for each sector, using `((last(daily_total) / first(daily_total)) - 1) * 100`. Which sector outperformed the rest?
+2. Using `sector_prices`, compute the Compound Annual Growth Rate (CAGR) for each sector, using `((last(daily_total) / first(daily_total)) - 1) * 100`. Which sector outperformed the rest?
 3. Choose 2-3 companies _from the same sector_ in the joined data and compare their performance across a time window of interest. (This could be open / high / low / close price data, shares held, or multiple variables.)
 4. Use `tidyquant::tq_performance()` to find some performance statistics for the stocks in the `sp500_tidy` data set. Along with another metric of interest, consider calculating the Sharpe ratio, one of the most widely used methods for measuring risk-adjusted relative returns, for each symbol. You can learn more about the Sharpe ratio here: https://en.wikipedia.org/wiki/Sharpe_ratio
 

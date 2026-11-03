@@ -16,6 +16,8 @@ This folder contains materials for your Posit Academy course project. You will c
 
 ## Getting Started
 
+**Using Positron?** If Positron shows a **Restricted Mode** banner when you open this folder, click **Trust this folder** in the Console, then click **Trust**. If the Console doesn't show an R prompt (`>`), click **Start Session** in the top right corner and choose an **R** version, not Python.
+
 **Step 1: Install R packages**
 
 1. Open your Console tab at the bottom of the IDE.
@@ -40,6 +42,6 @@ Once you have set up your project, you will have access to all of the milestone 
 
 Milestone files are numbered sequentially according to the week of the course. For example:
 
-Week 1 = `*_01_visualize.qmd`
-Week 2 = `*_02_summarize.qmd`
-etc.
+- Week 1 = `*_01_visualize.qmd`
+- Week 2 = `*_02_summarize.qmd`
+- etc.

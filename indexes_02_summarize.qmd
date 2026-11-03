@@ -7,11 +7,9 @@ format: html
 
 This week, you learned several new functions from dplyr (pronounced DEE-ply-er), a commonly-used package from the tidyverse for wrangling data. You also learned some new ways to enhance your plots.
 
-You'll use these skills to compute the Cumulative Annual Growth Rate (CAGR) for each index.
+You'll use these skills to compute the Compound Annual Growth Rate (CAGR) for each index.
 
 To learn more about the variables contained in the data set, refer to the data dictionary: https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/indexes_dictionary.html
-
-Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
 
 # Milestone
 
@@ -25,7 +23,7 @@ Remember that all tidyverse packages have already been installed for you but you
 
 ## Summarize data
 
-In this milestone, you'll use group-wise summaries to compute the Cumulative Annual Growth Rate (CAGR) for each index.
+In this milestone, you'll use group-wise summaries to compute the Compound Annual Growth Rate (CAGR) for each index.
 
 ## Recreation
 
@@ -62,7 +60,7 @@ solution
 Your task is to use what you've learned about the dplyr package to transform `indexes` into this table. You will need to:
 
 1. Group the data
-2. Summarize to compute the Cumulative Annual Growth Rate (CAGR) for each index
+2. Summarize to compute the Compound Annual Growth Rate (CAGR) for each index
 
 Work in the code chunk below. Save the result as `index_cagrs`.
 

@@ -11,13 +11,14 @@ In this milestone, you'll plot the CAGRs for each index and sector we've examine
 
 To learn more about the variables contained in the data sets, refer to the data dictionaries for `indexes` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/indexes_dictionary.html), `sp500` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sp500_dictionary.html), and `sectors` (https://rstudio.github.io/academy-tidyverse-stock-portfolios/assets/sectors_dictionary.html).
 
-Remember that all tidyverse packages have already been installed for you but you will need to *load* the ones you want to use.
-
 # Milestone
 
 ```{r}
 #| label: setup
 #| include: false
+
+# Load your packages here
+
 ```
 
 ## Factors
@@ -112,7 +113,7 @@ Run the following code chunk to test whether you have the same answer as the sol
 waldo::compare(cagrs, solution, tolerance = 1e-4)
 ```
 
-## Part 4 - The role of factor orders in visualizations
+### Part 4 - The role of factor orders in visualizations
 
 Run the chunk below to visualize the data of `cagrs`.
 
